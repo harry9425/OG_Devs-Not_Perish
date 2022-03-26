@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/editpagebtn2bjcbj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:backgroundTint="#00FFFFFF"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:tint="#43abb6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/editpage_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/ubuntu"
+        android:text="Enter new email:"
+        android:textColor="#43abb6"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/editpagebtn2bjcbj"
+        app:layout_constraintEnd_toStartOf="@+id/editpagebtn2bjcbj"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editpagebtn2bjcbj" />
+
+    <EditText
+        android:id="@+id/editpage_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="enter"
+        android:inputType="textPersonName"
+        android:textColor="#43abb6"
+        android:textColorHighlight="#43abb6"
+        android:textColorHint="#9543ABB6"
+        android:textColorLink="#43abb6"
+        app:layout_constraintEnd_toEndOf="@+id/editpagebtn2bjcbj"
+        app:layout_constraintStart_toStartOf="@+id/editpage_display"
+        app:layout_constraintTop_toBottomOf="@+id/editpagebtn2bjcbj" />
+
+    <Button
+        android:id="@+id/editpage_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="#43abb6"
+        android:text="Save changes"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editpage_name"
+        app:layout_constraintStart_toStartOf="@+id/editpage_name"
+        app:layout_constraintTop_toBottomOf="@+id/editpage_name" />
+</androidx.constraintlayout.widget.ConstraintLayout>

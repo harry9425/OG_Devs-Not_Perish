@@ -1,0 +1,121 @@
+body{
+    background-color: #d6f1f1;
+    font-family: 'Ubuntu', sans-serif;
+    overflow-x: hidden ;
+}
+.Navbar{
+    padding: 3% 15%;
+}
+.navbar-brand{
+    font-size: 3rem;
+}
+.nav-link{
+    font-size: 1.5rem;
+}
+.title-img{
+    position: relative;
+    bottom: 10%;
+    width:8cm; 
+     height:15cm;
+    
+}
+#quote{
+    font-size: 1.8rem;
+    color: #2b2c2a;     
+    
+}
+.d-block{
+    width: 50%;
+    height: 50%;
+}
+.download:hover{
+    color:#43abb6;
+}
+.download{
+    background-color: #43abb6;
+}
+#features{
+
+    /* padding: 3% 15%; */
+    background-color: white;
+    position:relative;
+    z-index: 1;
+
+}
+.fa-check-circle , .fa-bullseye , .fa-heart{
+    color: #B5EAEA;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    
+}
+
+.feature-box{
+    text-align: center;
+    padding: 5%;
+}
+
+.icon:hover {
+    color: #43abb6;
+
+}
+.text_2{
+    padding: 3% 15%;
+    
+    background-color: #d6f1f1;
+}
+.app_page{
+    padding: 3% 15%;
+}
+
+.appimg{
+    margin: auto;
+}
+
+#testimonials
+{
+    
+    text-align: center;
+    background-color:rgb(128, 216, 209) ;
+    color: black;
+}
+
+.carousel-item{
+    padding: 7% 15%;
+}   
+
+.qr-img{
+    width: 15%;
+    border-radius: 100%;
+    margin-top: 30px;
+}
+
+.about{
+    margin: auto;
+    
+}
+.tagline{
+    background-color: white;
+}
+.h1s{
+    padding-left: 7%;
+    text-align: left;
+    font-size: 1.8cm;
+    color: #43abb6;
+    font-weight: 550;
+
+}
+.card-title{
+    padding: 1%;
+    font-size: 2rem;
+}
+.card-body{
+    text-align: center;
+    padding: 7% 15%;
+    
+}
+.card-subtitle{
+    padding: 2%;
+    font-size: 2rem;
+}
+
+

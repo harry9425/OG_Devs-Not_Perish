@@ -55,8 +55,8 @@ public class getlocation extends FragmentActivity implements OnMapReadyCallback{
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  registeruser.location=currentlocation.getLatitude()+"&"+currentlocation.getLongitude();
-                //registeruser.phone=phone;
+              registeruser.location=currentlocation.getLatitude()+"&"+currentlocation.getLongitude();
+                registeruser.phone=phone;
                 Intent i =new Intent(getlocation.this,registeruser.class);
                 startActivity(i);
             }

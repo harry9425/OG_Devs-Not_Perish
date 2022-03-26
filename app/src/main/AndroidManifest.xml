@@ -15,20 +15,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.notperish">
-        <activity android:name=".login_page">
+        <activity android:name=".barcodescan"></activity>
+        <activity android:name=".accountsetting" />
+        <activity android:name=".startpage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".login_page"></activity>
         <activity android:name=".registeruser" />
-        <activity android:name=".getlocation" >
-        </activity>
+        <activity android:name=".getlocation" />
         <activity android:name=".otpverify" />
         <activity android:name=".expirefood" />
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -36,6 +37,16 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBfkN4KhPKZ19rYI9mOUsb-L9QNLPyWcB0" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.harry9425.perish.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

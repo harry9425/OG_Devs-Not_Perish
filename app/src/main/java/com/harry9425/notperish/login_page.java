@@ -29,7 +29,6 @@ public class login_page extends AppCompatActivity {
             @Override
             public void onCountrySelected() {
                 countryCodeAndroid = ccp.getSelectedCountryCode();
-                Log.d("Country Code", countryCodeAndroid);
             }
         });
         checkforotp.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +45,7 @@ public class login_page extends AppCompatActivity {
                     phoneno.setFocusable(false);
                 }
                 else {
-                    otpverify.phone=phoneno.getText().toString().trim();
+                    otpverify.phone=countryCodeAndroid+phoneno.getText().toString().trim();
                     Intent i=new Intent(login_page.this,otpverify.class);
                     startActivity(i);
                 }

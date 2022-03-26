@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +23,8 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 
+import org.w3c.dom.Text;
+
 import java.util.concurrent.TimeUnit;
 
 public class otpverify extends AppCompatActivity {
@@ -31,6 +34,7 @@ public class otpverify extends AppCompatActivity {
     public static int what=0;
     ProgressDialog progressDialog;
     EditText otpbyuser;
+    TextView dis;
     Button verify;
     private DatabaseReference databaseReference;
     public static String token;
@@ -42,6 +46,8 @@ public class otpverify extends AppCompatActivity {
         setContentView(R.layout.activity_otpverify);
         otpbyuser=(EditText) findViewById(R.id.otpverify_otp);
         verify=(Button) findViewById(R.id.otpverify_verifybtn);
+        dis=(TextView) findViewById(R.id.phonedis_otp);
+        dis.setText("Enter OTP sent to +"+phone);
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("ACCOUNT VERIFICATION");
         progressDialog.setMessage("Waiting for otp");
@@ -53,7 +59,7 @@ public class otpverify extends AppCompatActivity {
                 sendverificationcodetouser(phone);
             }
         });
-        phone="+91"+phone;
+        phone="+"+phone;
         sendverificationcodetouser(phone);
         verify.setOnClickListener(new View.OnClickListener() {
             @Override

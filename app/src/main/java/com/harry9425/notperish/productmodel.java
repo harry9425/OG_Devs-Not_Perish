@@ -1,7 +1,7 @@
 package com.harry9425.notperish;
 
 public class productmodel {
-    String name,date,category,uid,pno,dp,expiry,userid;
+    String name,date,category,uid,pno,dp,expiry,userid,expiryinms;
 
     public productmodel(String uid, String pno) {
         this.uid = uid;
@@ -11,7 +11,7 @@ public class productmodel {
     public productmodel() {
     }
 
-    public productmodel(String name, String date, String category, String uid, String pno, String dp, String expiry) {
+    public productmodel(String name, String date, String category, String uid, String pno, String dp, String expiry,String expiryinms) {
         this.name = name;
         this.date = date;
         this.category = category;
@@ -19,6 +19,15 @@ public class productmodel {
         this.pno = pno;
         this.dp = dp;
         this.expiry = expiry;
+        this.expiryinms=expiryinms;
+    }
+
+    public String getExpiryinms() {
+        return expiryinms;
+    }
+
+    public void setExpiryinms(String expiryinms) {
+        this.expiryinms = expiryinms;
     }
 
     public String getUserid() {

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f8fcfc">
+
+    <ImageView
+        android:id="@+id/imagescanalert"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="5dp"
+        android:background="#000000"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="@+id/refloadscanalert"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/cancelscanalert"
+        app:layout_constraintTop_toBottomOf="@+id/cancelscanalert"
+        app:srcCompat="@drawable/logoloading" />
+
+    <ImageButton
+        android:id="@+id/cancelscanalert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#43ABB6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_close_24" />
+
+    <ImageButton
+        android:id="@+id/refloadscanalert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#43ABB6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_refresh_24" />
+
+    <Button
+        android:id="@+id/continuescanalert"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="30dp"
+        android:background="#43ABB6"
+        android:text="Continue"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imagescanalert"
+        app:layout_constraintStart_toStartOf="@+id/imagescanalert"
+        app:layout_constraintTop_toBottomOf="@+id/imagescanalert" />
+</androidx.constraintlayout.widget.ConstraintLayout>
