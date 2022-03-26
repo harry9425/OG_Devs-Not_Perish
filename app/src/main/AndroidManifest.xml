@@ -15,7 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.notperish">
-        <activity android:name=".barcodescan"></activity>
+        <activity android:name=".nearbyfood_layout"></activity>
+        <activity android:name=".inventory_large"></activity>
+        <activity android:name=".donateview" />
+        <activity android:name=".mapdonate" />
+        <activity android:name=".donatepage" />
+        <activity android:name=".manualenlistpage" />
+        <activity android:name=".barcodescan" />
         <activity android:name=".accountsetting" />
         <activity android:name=".startpage">
             <intent-filter>
@@ -24,12 +30,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login_page"></activity>
+        <activity android:name=".login_page" />
         <activity android:name=".registeruser" />
         <activity android:name=".getlocation" />
         <activity android:name=".otpverify" />
         <activity android:name=".expirefood" />
         <activity android:name=".MainActivity" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
 
         <meta-data
             android:name="preloaded_fonts"

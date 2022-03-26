@@ -62,6 +62,7 @@ public class barcodescan extends AppCompatActivity {
     ImageButton refresh;
     StorageReference mref;
     Uri uri = null;
+    String selval;
     private DatePickerDialog datePickerDialog;
     String name, date, category, dp, uid, currentPhotoPath, pid = "",dinms;
     ArrayList<productmodel> ocrlist = MainActivity.arrayList;
@@ -154,6 +155,7 @@ public class barcodescan extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         if (!name.isEmpty() && !date.isEmpty()) {
+
             DatabaseReference mDatabase;
             mDatabase = FirebaseDatabase.getInstance().getReference();
             String randomkey = mDatabase.push().getKey();
@@ -189,6 +191,7 @@ public class barcodescan extends AppCompatActivity {
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         qrcodedisplay.setText(qrcodebyuser.getText().toString().trim());
+                        selval=qrcodebyuser.getText().toString().trim();
                         if (qrcodebyuser.getText().toString().isEmpty()) {
                             qrcodedisplay.setText("product number");
                         }
@@ -200,6 +203,14 @@ public class barcodescan extends AppCompatActivity {
 
                     @Override
                     public void afterTextChanged(Editable s) {
+                    }
+                });
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        productid.setText(selval);
+                        alertDialog.dismiss();
+                        alertDialog.cancel();
                     }
                 });
                 addmanual.setOnClickListener(new View.OnClickListener() {
@@ -226,6 +237,7 @@ public class barcodescan extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         addmanual.setAlpha(1f);
+                        selval="";
                         addmanual.setTextColor(Color.parseColor("#43abb6"));
                         addmanual.setBackgroundColor(Color.parseColor("#FFFFFF"));
                         qrcodebyuser.setVisibility(View.GONE);
@@ -233,6 +245,7 @@ public class barcodescan extends AppCompatActivity {
                         if (generaterandom.getAlpha() == 1f) {
                             generaterandom.setAlpha(0.98f);
                             qrcodedisplay.setText(randomkey);
+                            selval=randomkey;
                             generaterandom.setBackgroundColor(Color.parseColor("#43abb6"));
                             generaterandom.setTextColor(Color.parseColor("#FFFFFF"));
                         } else {
@@ -243,6 +256,7 @@ public class barcodescan extends AppCompatActivity {
                     }
                 });
                 alertDialog.show();
+
             } else {
                 progressDialog.show();
                 if (uri == null) {

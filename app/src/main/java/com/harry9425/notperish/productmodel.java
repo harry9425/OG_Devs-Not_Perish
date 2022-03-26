@@ -2,6 +2,7 @@ package com.harry9425.notperish;
 
 public class productmodel {
     String name,date,category,uid,pno,dp,expiry,userid,expiryinms;
+    Long exrem;
 
     public productmodel(String uid, String pno) {
         this.uid = uid;
@@ -20,6 +21,14 @@ public class productmodel {
         this.dp = dp;
         this.expiry = expiry;
         this.expiryinms=expiryinms;
+    }
+
+    public Long getExrem() {
+        return exrem;
+    }
+
+    public void setExrem(Long exrem) {
+        this.exrem = exrem;
     }
 
     public String getExpiryinms() {

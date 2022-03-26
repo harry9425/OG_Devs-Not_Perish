@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,6 +51,7 @@ public class expirefood extends AppCompatActivity {
                     productmodel=snapshot.getValue(productmodel.class);
                     list.add(productmodel);
                 }
+                list.sort(new allfoodsorter());
                 inventoryexpireadpater.notifyDataSetChanged();
             }
             @Override
@@ -57,5 +59,11 @@ public class expirefood extends AppCompatActivity {
                 Toast.makeText(expirefood.this, "CAN'T CONNECT TO SERVER", Toast.LENGTH_LONG).show();
             }
         });
+    }
+    public void bkbk(View view){
+        onBackPressed();
+    }
+    public void ref(View view){
+        getproductslist();
     }
 }

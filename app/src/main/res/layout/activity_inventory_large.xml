@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".inventory_large">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/constraintLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#43abb6"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <ImageButton
+        android:id="@+id/search_inventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#43abb6"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/bkbk_inl"
+        app:layout_constraintEnd_toStartOf="@+id/refresh_inventory"
+        app:layout_constraintTop_toTopOf="@+id/bkbk_inl"
+        app:srcCompat="@drawable/ic_baseline_search_24" />
+
+    <ImageButton
+        android:id="@+id/refresh_inventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:backgroundTint="#43abb6"
+        android:onClick="ref"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/search_inventory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/search_inventory"
+        app:srcCompat="@drawable/ic_baseline_refresh_24" />
+
+    <ImageButton
+        android:id="@+id/bkbk_inl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#43abb6"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recyclerView_inventory"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginStart="20dp"
+      app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+  <androidx.cardview.widget.CardView
+      android:id="@+id/cardview_inventory"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="30dp"
+      android:layout_marginEnd="30dp"
+      android:layout_marginBottom="30dp"
+      android:visibility="gone"
+      app:cardBackgroundColor="#43abb6"
+      app:cardCornerRadius="30dp"
+      app:layout_constraintBottom_toBottomOf="@+id/recyclerView_inventory"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <ImageButton
+          android:id="@+id/search_inventorylarge"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:backgroundTint="#00FFFFFF"
+          app:layout_constraintEnd_toStartOf="@+id/scanner_inventorylarge"
+          app:layout_constraintTop_toTopOf="parent"
+          app:srcCompat="@drawable/ic_baseline_search_24" />
+
+      <ImageButton
+          android:id="@+id/close_inventorylarge"
+          android:layout_width="30dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="5dp"
+          android:backgroundTint="#00FFFFFF"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:srcCompat="@drawable/ic_baseline_close_24" />
+
+      <ImageButton
+          android:id="@+id/scanner_inventorylarge"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:layout_marginEnd="5dp"
+          android:backgroundTint="#00FFFFFF"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:srcCompat="@drawable/ic_baseline_document_scanner_24" />
+
+      <EditText
+          android:id="@+id/text_inventorylarge"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="5dp"
+          android:backgroundTint="#FFFFFF"
+          android:ems="10"
+          android:hint="Enter product name"
+          android:inputType="textPersonName"
+          android:textColor="#FFFFFF"
+          android:textColorHighlight="#94FFFFFF"
+          android:textColorHint="#79FFFFFF"
+          android:textColorLink="#7AFFFFFF"
+          app:layout_constraintEnd_toStartOf="@+id/search_inventorylarge"
+          app:layout_constraintStart_toStartOf="@+id/close_inventorylarge"
+          app:layout_constraintTop_toBottomOf="@+id/display_inventorylarge" />
+
+      <TextView
+          android:id="@+id/display_inventorylarge"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:text="Search By name"
+          android:textColor="#FFFFFF"
+          android:textSize="18sp"
+          android:textStyle="bold"
+          app:layout_constraintBottom_toBottomOf="@+id/search_inventorylarge"
+          app:layout_constraintEnd_toStartOf="@+id/search_inventorylarge"
+          app:layout_constraintStart_toEndOf="@+id/close_inventorylarge"
+          app:layout_constraintTop_toTopOf="@+id/search_inventorylarge" />
+
+      <Button
+          android:id="@+id/savbtn_inventorylarge"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:backgroundTint="#FFFFFF"
+          android:text="Search"
+          android:textColor="#43abb6"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="@+id/text_inventorylarge"
+          app:layout_constraintStart_toStartOf="@+id/text_inventorylarge"
+          app:layout_constraintTop_toBottomOf="@+id/text_inventorylarge" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.cardview.widget.CardView>
+
+  <LinearLayout
+      android:id="@+id/linearLayout2"
+      android:layout_width="match_parent"
+      android:layout_height="60dp"
+      android:background="@drawable/roundedshape"
+      android:orientation="horizontal"
+      android:paddingLeft="20dp"
+      android:paddingRight="20dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent">
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#FFFFFF"
+        app:srcCompat="@drawable/ic_baseline_home_24" />
+
+    <ImageButton
+        android:id="@+id/imageButton9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#FFFFFF"
+        app:srcCompat="@drawable/ic_baseline_search_24" />
+
+    <ImageButton
+        android:id="@+id/imageButton7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#FFFFFF"
+        app:srcCompat="@drawable/ic_baseline_chat_24" />
+
+    <ImageButton
+        android:id="@+id/imageButton10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#FFFFFF"
+        app:srcCompat="@drawable/ic_baseline_inventory_24" />
+
+    <ImageButton
+        android:id="@+id/imageButton8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#FFFFFF"
+        app:srcCompat="@drawable/ic_baseline_my_location_24" />
+  </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

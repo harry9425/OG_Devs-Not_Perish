@@ -27,6 +27,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.eftimoff.viewpagertransformers.DepthPageTransformer;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +42,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -108,12 +112,13 @@ public class startpage extends AppCompatActivity {
             LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
             inventoryrecyclerview.setLayoutManager(linearLayoutManager2);
             getproductslist();
-           /* DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     mycoor = snapshot.child("coordinates").getValue().toString();
                     nameofuser = snapshot.child("name").getValue().toString();
+                    getdonationlist();
                     if (snapshot.hasChild("dp")) {
                         String dp = snapshot.child("dp").getValue().toString();
                         Glide.with(startpage.this)
@@ -129,9 +134,6 @@ public class startpage extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
             });
-
-            */
-            getdonationlist();
             seekBar.setMax(20);
             seekBar.setMin(1);
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -179,18 +181,18 @@ public class startpage extends AppCompatActivity {
     }
 
     public void openmapsdonate(View view) {
-       // Intent i = new Intent(this, mapdonate.class);
-       // startActivity(i);
+       Intent i = new Intent(this, mapdonate.class);
+        startActivity(i);
     }
 
     public void openinventory(View view) {
-        //Intent i = new Intent(this, inventory_large.class);
-        //startActivity(i);
+        Intent i = new Intent(this, inventory_large.class);
+        startActivity(i);
     }
 
     public void nearbylarge(View view) {
-       // Intent i = new Intent(this, nearbyfood_layout.class);
-       // startActivity(i);
+       Intent i = new Intent(this, nearbyfood_layout.class);
+        startActivity(i);
     }
 
     private void getdonationlist() {
@@ -204,37 +206,30 @@ public class startpage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list.clear();
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                    databaseReference.child(snap.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String percoor = snapshot.child("coordinates").getValue().toString();
-                            String[] s = percoor.split("&");
-                            Double perlat = Double.parseDouble(s[0]);
-                            Double perlong = Double.parseDouble(s[1]);
-                            String[] p = mycoor.split("&");
-                            Double mylat = Double.parseDouble(p[0]);
-                            Double mylong = Double.parseDouble(p[1]);
-                            float[] results = new float[1];
-                            Location.distanceBetween(mylat, mylong,
-                                    perlat, perlong, results);
-                            float dist = results[0];
-                            Toast.makeText(startpage.this, dist + "\n" + perlat, Toast.LENGTH_LONG).show();
-                            if (dist <= distancebw) {
-                                for (DataSnapshot var : snap.getChildren()) {
-                                    donatemodel = new donatemodel();
-                                    donatemodel = var.getValue(donatemodel.class);
-                                    // Toast.makeText(startpage.this,donatemodel.getUid(), Toast.LENGTH_LONG).show();
-                                    list.add(donatemodel);
-                                }
-                            }
-                            nearbyfoodadpter.notifyDataSetChanged();
+                    for (DataSnapshot var:snap.getChildren()) {
+                        String percoor = var.child("latltd").getValue().toString();
+                        String[] s = percoor.split("&");
+                        Double perlat = Double.parseDouble(s[0]);
+                        Double perlong = Double.parseDouble(s[1]);
+                        String[] p = mycoor.split("&");
+                        Double mylat = Double.parseDouble(p[0]);
+                        Double mylong = Double.parseDouble(p[1]);
+                        float[] results = new float[1];
+                        Location.distanceBetween(mylat, mylong,
+                                perlat, perlong, results);
+                        float dist = results[0]/1000;
+                        donatemodel = new donatemodel();
+                        donatemodel = var.getValue(donatemodel.class);
+                        // Toast.makeText(mapdonate.this, dist+"\n"+distancebw, Toast.LENGTH_LONG).show();
+                        if (dist <= distancebw*1.0f) {
+                            donatemodel = new donatemodel();
+                            donatemodel = var.getValue(donatemodel.class);
+                            // Toast.makeText(startpage.this,donatemodel.getUid(), Toast.LENGTH_LONG).show();
+                            list.add(donatemodel);
                         }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                        }
-                    });
+                    }
                 }
+                nearbyfoodadpter.notifyDataSetChanged();
             }
 
             @Override
@@ -263,12 +258,16 @@ public class startpage extends AppCompatActivity {
     }
 
     public void enlist(View view) {
-        // Intent i =new Intent(startpage.this,manualenlistpage.class);
-        // startActivity(i);
+        Intent i =new Intent(startpage.this,manualenlistpage.class);
+         startActivity(i);
     }
 
     public void donate(View view) {
-        //Intent i =new Intent(startpage.this,donatepage.class);
-        //startActivity(i);
+        Intent i =new Intent(startpage.this,donatepage.class);
+        startActivity(i);
+    }
+    public void expirein(View view) {
+        Intent i =new Intent(startpage.this,expirefood.class);
+        startActivity(i);
     }
 }
