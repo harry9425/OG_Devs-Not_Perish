@@ -126,31 +126,33 @@ public class mapdonate extends FragmentActivity implements OnMapReadyCallback  {
                 onMapReady(map);
                 list.clear();
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                    for (DataSnapshot var:snap.getChildren()) {
-                        String percoor = var.child("latltd").getValue().toString();
-                        String[] s = percoor.split("&");
-                        Double perlat = Double.parseDouble(s[0]);
-                        Double perlong = Double.parseDouble(s[1]);
-                        String[] p = mycoor.split("&");
-                        Double mylat = Double.parseDouble(p[0]);
-                        Double mylong = Double.parseDouble(p[1]);
-                        float[] results = new float[1];
-                        Location.distanceBetween(mylat, mylong,
-                                perlat, perlong, results);
-                        float dist = results[0]/1000;
-                        donatemodel = new donatemodel();
-                        donatemodel = var.getValue(donatemodel.class);
-                        // Toast.makeText(mapdonate.this, dist+"\n"+distancebw, Toast.LENGTH_LONG).show();
-                        if (dist <= distancebw*1.0f && (tosr.isEmpty() || donatemodel.getName().contains(tosr))) {
-                            LatLng latLng = new LatLng(perlat, perlong);
-                            DecimalFormat df = new DecimalFormat();
-                            df.setMaximumFractionDigits(1);
-                            list.add(donatemodel);
-                            MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(donatemodel.getName().toUpperCase() + " Details: " + donatemodel.getDetails()
-                                    + " Distance: " + df.format(dist)+" Km");
-                            Marker m= map.addMarker(markerOptions);
-                            m.setTag(new String(donatemodel.getUid()+"&"+donatemodel.getDonationid()+"&"+percoor));
-                            m.showInfoWindow();
+                    if (!snap.getKey().equals(uid)) {
+                        for (DataSnapshot var : snap.getChildren()) {
+                            String percoor = var.child("latltd").getValue().toString();
+                            String[] s = percoor.split("&");
+                            Double perlat = Double.parseDouble(s[0]);
+                            Double perlong = Double.parseDouble(s[1]);
+                            String[] p = mycoor.split("&");
+                            Double mylat = Double.parseDouble(p[0]);
+                            Double mylong = Double.parseDouble(p[1]);
+                            float[] results = new float[1];
+                            Location.distanceBetween(mylat, mylong,
+                                    perlat, perlong, results);
+                            float dist = results[0] / 1000;
+                            donatemodel = new donatemodel();
+                            donatemodel = var.getValue(donatemodel.class);
+                            // Toast.makeText(mapdonate.this, dist+"\n"+distancebw, Toast.LENGTH_LONG).show();
+                            if (dist <= distancebw * 1.0f && (tosr.isEmpty() || donatemodel.getName().contains(tosr))) {
+                                LatLng latLng = new LatLng(perlat, perlong);
+                                DecimalFormat df = new DecimalFormat();
+                                df.setMaximumFractionDigits(1);
+                                list.add(donatemodel);
+                                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(donatemodel.getName().toUpperCase() + " Details: " + donatemodel.getDetails()
+                                        + " Distance: " + df.format(dist) + " Km");
+                                Marker m = map.addMarker(markerOptions);
+                                m.setTag(new String(donatemodel.getUid() + "&" + donatemodel.getDonationid() + "&" + percoor));
+                                m.showInfoWindow();
+                            }
                         }
                     }
                 }

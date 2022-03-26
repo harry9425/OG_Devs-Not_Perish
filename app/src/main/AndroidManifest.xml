@@ -15,8 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.notperish">
-        <activity android:name=".nearbyfood_layout"></activity>
-        <activity android:name=".inventory_large"></activity>
+        <activity android:name=".inventoryview"></activity>
+        <activity android:name=".nearbyfood_layout" />
+        <activity android:name=".inventory_large" />
         <activity android:name=".donateview" />
         <activity android:name=".mapdonate" />
         <activity android:name=".donatepage" />

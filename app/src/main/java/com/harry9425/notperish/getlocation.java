@@ -31,6 +31,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class getlocation extends FragmentActivity implements OnMapReadyCallback{
     SupportMapFragment supportMapFragment;
@@ -55,10 +61,35 @@ public class getlocation extends FragmentActivity implements OnMapReadyCallback{
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              registeruser.location=currentlocation.getLatitude()+"&"+currentlocation.getLongitude();
+                registeruser.location=currentlocation.getLatitude()+"&"+currentlocation.getLongitude();
                 registeruser.phone=phone;
-                Intent i =new Intent(getlocation.this,registeruser.class);
-                startActivity(i);
+                DatabaseReference databaseReference;
+                databaseReference= FirebaseDatabase.getInstance().getReference();
+                databaseReference.keepSynced(true);
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.hasChild("users")){
+                            if(snapshot.child("users").hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                                //Toast.makeText(getlocation.this,"dsvsdvdvs",Toast.LENGTH_SHORT).show();
+                                Intent i =new Intent(getlocation.this,startpage.class);
+                                startActivity(i);
+                                finish();
+                            }
+                            else {
+                                Intent i =new Intent(getlocation.this,registeruser.class);
+                                startActivity(i);
+                            }
+                        }
+                        else {
+                            Intent i = new Intent(getlocation.this, registeruser.class);
+                            startActivity(i);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
+
             }
         });
         refresh.setOnClickListener(new View.OnClickListener() {

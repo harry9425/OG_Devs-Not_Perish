@@ -1,6 +1,7 @@
 package com.harry9425.notperish;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,14 @@ public class inventoryadapter extends RecyclerView.Adapter<inventoryadapter.view
                 .load(detailsm.getDp())
                 .placeholder(R.drawable.logoloading)
                 .into(holder.imageView);
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i =new Intent(context,inventoryview.class);
+                inventoryview.productmodel=detailsm;
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override

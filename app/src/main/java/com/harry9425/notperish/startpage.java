@@ -2,6 +2,8 @@ package com.harry9425.notperish;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +20,10 @@ import android.hardware.Camera;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
@@ -51,6 +56,7 @@ public class startpage extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     String uid;
+    TextView goodwill;
     nearbyfoodadpter nearbyfoodadpter;
     RecyclerView recyclerView, inventoryrecyclerview;
     ArrayList<donatemodel> list = new ArrayList<>();
@@ -60,6 +66,8 @@ public class startpage extends AppCompatActivity {
     productmodel productmodel;
     donatemodel donatemodel;
     int allow = 0;
+    String address;
+    int cntg=0;
     CircleImageView billsbtn;
     public static String mycoor;
     private static final double r2d = 180.0D / 3.141592653589793D;
@@ -76,6 +84,8 @@ public class startpage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startpage);
         mAuth = FirebaseAuth.getInstance();
+        goodwill=(TextView) findViewById(R.id.goodwillcnt);
+        goodwill.setText("fetching...");
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //Toast.makeText(this,currentUser+" "+currentUser.getUid(), Toast.LENGTH_LONG).show();
         if (currentUser == null) {
@@ -94,6 +104,7 @@ public class startpage extends AppCompatActivity {
                     startActivity(i);
                 }
             });
+
             distancerem = (TextView) findViewById(R.id.distanceshown);
             seekBar = (SeekBar) findViewById(R.id.distance_slider);
             recyclerView = (RecyclerView) findViewById(R.id.nearbyfoodrecyclerview);
@@ -118,6 +129,7 @@ public class startpage extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     mycoor = snapshot.child("coordinates").getValue().toString();
                     nameofuser = snapshot.child("name").getValue().toString();
+                    address=snapshot.child("address").getValue().toString();
                     getdonationlist();
                     if (snapshot.hasChild("dp")) {
                         String dp = snapshot.child("dp").getValue().toString();
@@ -129,7 +141,6 @@ public class startpage extends AppCompatActivity {
                         circleImageView.setImageResource(R.drawable.logoloading);
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
@@ -156,6 +167,53 @@ public class startpage extends AppCompatActivity {
 
     }
 
+    public void openwb(View view){
+        startActivity(new Intent(Intent.ACTION_VIEW,
+                Uri.parse("https://pratham-ez.github.io/trial.perish/")));
+    }
+
+    public void showsettingcard(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View view2 = getLayoutInflater().inflate(R.layout.showsettingsalert, null);
+        builder.setView(view2);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
+        TextView name=view2.findViewById(R.id.showsetting_name);
+        TextView location=view2.findViewById(R.id.showsetting_location);
+        ImageButton i=view2.findViewById(R.id.inventory_showsetting);
+        ImageButton d=view2.findViewById(R.id.donation_showsetting);
+        WebView w=view2.findViewById(R.id.showsetting_webview);
+        Button so=view2.findViewById(R.id.so_ss);
+        so.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signout(view);
+            }
+        });
+        w.getSettings().setJavaScriptEnabled(true);
+        w.loadUrl("https://pratham-ez.github.io/trial.perish/");
+        w.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://pratham-ez.github.io/trial.perish/")));
+                return false;
+            }
+        });
+        name.setText("Welcome, "+nameofuser);
+        location.setText("Your address: "+address);
+        location.setSelected(true);
+        alertDialog.show();
+        ImageButton close=view2.findViewById(R.id.bkbk_ss);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+                alertDialog.cancel();
+            }
+        });
+    }
 
     private void getproductslist() {
         mDatabase = FirebaseDatabase.getInstance();
@@ -205,31 +263,37 @@ public class startpage extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list.clear();
+                cntg=0;
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                    for (DataSnapshot var:snap.getChildren()) {
-                        String percoor = var.child("latltd").getValue().toString();
-                        String[] s = percoor.split("&");
-                        Double perlat = Double.parseDouble(s[0]);
-                        Double perlong = Double.parseDouble(s[1]);
-                        String[] p = mycoor.split("&");
-                        Double mylat = Double.parseDouble(p[0]);
-                        Double mylong = Double.parseDouble(p[1]);
-                        float[] results = new float[1];
-                        Location.distanceBetween(mylat, mylong,
-                                perlat, perlong, results);
-                        float dist = results[0]/1000;
-                        donatemodel = new donatemodel();
-                        donatemodel = var.getValue(donatemodel.class);
-                        // Toast.makeText(mapdonate.this, dist+"\n"+distancebw, Toast.LENGTH_LONG).show();
-                        if (dist <= distancebw*1.0f) {
+                    if(!snap.getKey().equals(uid)) {
+                        for (DataSnapshot var : snap.getChildren()) {
+                            cntg++;
+                            String percoor = var.child("latltd").getValue().toString();
+                            String[] s = percoor.split("&");
+                            Double perlat = Double.parseDouble(s[0]);
+                            Double perlong = Double.parseDouble(s[1]);
+                            String[] p = mycoor.split("&");
+                            Double mylat = Double.parseDouble(p[0]);
+                            Double mylong = Double.parseDouble(p[1]);
+                            float[] results = new float[1];
+                            Location.distanceBetween(mylat, mylong,
+                                    perlat, perlong, results);
+                            float dist = results[0] / 1000;
                             donatemodel = new donatemodel();
                             donatemodel = var.getValue(donatemodel.class);
-                            // Toast.makeText(startpage.this,donatemodel.getUid(), Toast.LENGTH_LONG).show();
-                            list.add(donatemodel);
+                            // Toast.makeText(mapdonate.this, dist+"\n"+distancebw, Toast.LENGTH_LONG).show();
+                            if (dist <= distancebw * 1.0f) {
+                                donatemodel = new donatemodel();
+                                donatemodel = var.getValue(donatemodel.class);
+                                // Toast.makeText(startpage.this,donatemodel.getUid(), Toast.LENGTH_LONG).show();
+                                list.add(donatemodel);
+                            }
                         }
                     }
                 }
                 nearbyfoodadpter.notifyDataSetChanged();
+                goodwill.setText(cntg+" Goodwill's so far");
+                goodwill.setSelected(true);
             }
 
             @Override
@@ -270,4 +334,11 @@ public class startpage extends AppCompatActivity {
         Intent i =new Intent(startpage.this,expirefood.class);
         startActivity(i);
     }
+
+    public void mydonation(View view){
+        Intent i =new Intent(startpage.this,nearbyfood_layout.class);
+        nearbyfood_layout.self=1;
+        startActivity(i);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.harry9425.notperish;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class inventoryexpireadpater extends RecyclerView.Adapter<inventoryexpire
 
     ArrayList<productmodel> list;
     Context context;
+   ArrayList<productmodel> choosen=new ArrayList<>();
     DatabaseReference databaseReference;
 
     public inventoryexpireadpater(ArrayList<productmodel> list, Context context) {
@@ -57,10 +59,33 @@ public class inventoryexpireadpater extends RecyclerView.Adapter<inventoryexpire
         DateFormat obj = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
         Date res = new Date(Long.parseLong(detailsm.getDate()));
         holder.date.setText(obj.format(res));
-        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+        if(detailsm.getSelect()==1){
+            choosen.add(detailsm);
+            holder.constraintLayout.setBackgroundColor(Color.parseColor("#C6F5FB"));
+            holder.sel.setVisibility(View.VISIBLE);
+        }
+        else {
+            choosen.remove(detailsm);
+            holder.constraintLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            holder.sel.setVisibility(View.INVISIBLE);
+        }
+        holder.constraintLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View view) {
-                holder.sel.setVisibility(View.VISIBLE);
+            public boolean onLongClick(View view) {
+                expirefood.val="";
+                if(holder.sel.getVisibility()==View.INVISIBLE) {
+                    choosen.add(detailsm);
+                    detailsm.setSelect(1);
+                    holder.constraintLayout.setBackgroundColor(Color.parseColor("#C6F5FB"));
+                    holder.sel.setVisibility(View.VISIBLE);
+                }
+                else {
+                    choosen.remove(detailsm);
+                    detailsm.setSelect(0);
+                    holder.constraintLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    holder.sel.setVisibility(View.INVISIBLE);
+                }
+                return false;
             }
         });
     }
@@ -73,6 +98,10 @@ public class inventoryexpireadpater extends RecyclerView.Adapter<inventoryexpire
     public void filteredlist(ArrayList<productmodel> temp) {
         list=temp;
         notifyDataSetChanged();
+    }
+
+    public ArrayList<productmodel> setlist() {
+        return choosen;
     }
 
     public class viewholder extends RecyclerView.ViewHolder {

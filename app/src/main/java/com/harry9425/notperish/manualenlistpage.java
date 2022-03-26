@@ -147,7 +147,7 @@ public class manualenlistpage extends AppCompatActivity {
             String randomkey = mDatabase.push().getKey();
             progressDialog.show();
             if (uri == null) {
-                dp = "https://firebasestorage.googleapis.com/v0/b/hackathonproj-b48e0.appspot.com/o/apps_pics%2Ffooddefaultpic.jpg?alt=media&token=b1b90584-fdb7-476b-ad6a-7ad5dd2b6c9d";
+                dp = "https://firebasestorage.googleapis.com/v0/b/notperish-a887a.appspot.com/o/defaultfoodpic.jpeg?alt=media&token=5f0294d7-e3f5-4d7e-aedc-7cbb4b68db36";
                 savetodb(dp, randomkey, mDatabase, progressDialog);
             } else {
                 StorageReference filepath = mref.child("users").child(uid).child("Inventory").child(randomkey);

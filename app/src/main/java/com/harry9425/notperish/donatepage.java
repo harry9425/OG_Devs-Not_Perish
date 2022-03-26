@@ -75,6 +75,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -102,6 +103,8 @@ public class donatepage extends FragmentActivity implements OnMapReadyCallback {
     StorageReference mref;
     Uri uri=null;
     String nameofuser=null;
+    public static ArrayList<productmodel> donatelist;
+    int isloop=0;
     String location,latltd,details,quantity,chngq,type,edible="1",dp=null,uid,donateid;
 
     @Override
@@ -192,6 +195,13 @@ public class donatepage extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
+        if (expirefood.fromlist == 1) {
+            detailset.setText(donatelist.get(expirefood.cnt).getName());
+            Glide.with(this)
+                    .load(donatelist.get(expirefood.cnt).getDp())
+                    .placeholder(R.drawable.logoloading)
+                    .into(circleImageView);
+        }
     }
 
     LocationListener locationListenerGPS=new LocationListener() {
@@ -260,10 +270,26 @@ public class donatepage extends FragmentActivity implements OnMapReadyCallback {
                                             public void onSuccess(Void aVoid) {
                                                 progressDialog.dismiss();
                                                 progressDialog.cancel();
-                                                Toast.makeText(donatepage.this,"Successfull",Toast.LENGTH_LONG).show();
-                                                Intent i=new Intent(donatepage.this,startpage.class);
-                                                startActivity(i);
-                                                finish();
+                                                //Toast.makeText(donatepage.this, expirefood.fromlist, Toast.LENGTH_SHORT).show();
+                                                if(expirefood.fromlist==0) {
+                                                  //  Toast.makeText(donatepage.this, "Successfull", Toast.LENGTH_LONG).show();
+                                                    Intent i = new Intent(donatepage.this, startpage.class);
+                                                    startActivity(i);
+                                                    finish();
+                                                }
+                                                else {
+                                                    expirefood.cnt++;
+                                                    if (expirefood.cnt < donatelist.size()) {
+                                                        Intent i = new Intent(donatepage.this, donatepage.class);
+                                                        startActivity(i);
+                                                        finish();
+                                                    } else {
+                                                        expirefood.fromlist = 0;
+                                                        Intent i = new Intent(donatepage.this, expirefood.class);
+                                                        startActivity(i);
+                                                        finish();
+                                                    }
+                                                }
                                             }
                                         });
                                     }
@@ -279,16 +305,31 @@ public class donatepage extends FragmentActivity implements OnMapReadyCallback {
                 });
             }
             else {
-                donatemodel.setDp("def");
+                donatemodel.setDp("https://firebasestorage.googleapis.com/v0/b/notperish-a887a.appspot.com/o/defaultfoodpic.jpeg?alt=media&token=5f0294d7-e3f5-4d7e-aedc-7cbb4b68db36");
                 databaseReference.child("donation").child(uid).child(donatemodel.getDonationid()).setValue(donatemodel).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         progressDialog.dismiss();
                         progressDialog.cancel();
-                        Toast.makeText(donatepage.this,"Successfull",Toast.LENGTH_LONG).show();
-                        Intent i=new Intent(donatepage.this,startpage.class);
-                        startActivity(i);
-                        finish();
+                        if(expirefood.fromlist==0) {
+                            //  Toast.makeText(donatepage.this, "Successfull", Toast.LENGTH_LONG).show();
+                            Intent i = new Intent(donatepage.this, startpage.class);
+                            startActivity(i);
+                            finish();
+                        }
+                        else {
+                            expirefood.cnt++;
+                            if (expirefood.cnt < donatelist.size()) {
+                                Intent i = new Intent(donatepage.this, donatepage.class);
+                                startActivity(i);
+                                finish();
+                            } else {
+                                expirefood.fromlist = 0;
+                                Intent i = new Intent(donatepage.this, expirefood.class);
+                                startActivity(i);
+                                finish();
+                            }
+                        }
                     }
                 });
             }

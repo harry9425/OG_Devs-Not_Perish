@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,8 +38,10 @@ public class nearbyfood_layout extends AppCompatActivity {
     String mycoor;
     int distancebw=1;
     TextView distancerem;
+    ImageButton phone;
     EditText searchdonate;
     SeekBar seekBar;
+    public  static int self=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,30 +56,37 @@ public class nearbyfood_layout extends AppCompatActivity {
         uid=FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(gridLayoutManager);
-        seekBar.setMax(20);
-        seekBar.setMin(1);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                distancebw=seekBar.getProgress();
-                distancerem.setText(seekBar.getProgress()+" Km");
-                getdonationlist();
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
-        });
-        DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("users").child(uid);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mycoor=snapshot.child("coordinates").getValue().toString();
-                getdonationlist();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
-        });
+        if(self==1){
+            seekBar.setVisibility(View.GONE);
+            getselflist();
+        }
+        else {
+            seekBar.setMax(20);
+            seekBar.setMin(1);
+            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                    distancebw=seekBar.getProgress();
+                    distancerem.setText(seekBar.getProgress()+" Km");
+                    getdonationlist();
+                }
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {}
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {}
+            });
+            DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("users").child(uid);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    mycoor=snapshot.child("coordinates").getValue().toString();
+                    getdonationlist();
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) { }
+            });
+            getdonationlist();
+        }
         searchdonate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -123,38 +133,58 @@ public class nearbyfood_layout extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list.clear();
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                    databaseReference.child(snap.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String percoor=snapshot.child("coordinates").getValue().toString();
-                            String[] s=percoor.split("&");
-                            Double perlat=Double.parseDouble(s[0]);
-                            Double perlong=Double.parseDouble(s[1]);
-                            String[] p=mycoor.split("&");
-                            Double mylat=Double.parseDouble(p[0]);
-                            Double mylong=Double.parseDouble(p[1]);
+                    if(!snap.getKey().equals(uid)) {
+                        for (DataSnapshot var : snap.getChildren()) {
+                            String percoor = var.child("latltd").getValue().toString();
+                            String[] s = percoor.split("&");
+                            Double perlat = Double.parseDouble(s[0]);
+                            Double perlong = Double.parseDouble(s[1]);
+                            String[] p = mycoor.split("&");
+                            Double mylat = Double.parseDouble(p[0]);
+                            Double mylong = Double.parseDouble(p[1]);
                             float[] results = new float[1];
                             Location.distanceBetween(mylat, mylong,
                                     perlat, perlong, results);
-                            float dist = results[0];
-                            Toast.makeText(nearbyfood_layout.this, dist+"\n"+perlat, Toast.LENGTH_LONG).show();
-                            if(dist<=distancebw){
-                                for (DataSnapshot var:snap.getChildren()){
-                                    donatemodel=new donatemodel();
-                                    donatemodel=var.getValue(donatemodel.class);
-                                    // Toast.makeText(nearbyfood_layout.this,donatemodel.getUid(), Toast.LENGTH_LONG).show();
-                                    list.add(donatemodel);
-                                }
+                            float dist = results[0] / 1000;
+                            donatemodel = new donatemodel();
+                            donatemodel = var.getValue(donatemodel.class);
+                            // Toast.makeText(mapdonate.this, dist+"\n"+distancebw, Toast.LENGTH_LONG).show();
+                            if (dist <= distancebw * 1.0f) {
+                                donatemodel = new donatemodel();
+                                donatemodel = var.getValue(donatemodel.class);
+                                // Toast.makeText(startpage.this,donatemodel.getUid(), Toast.LENGTH_LONG).show();
+                                list.add(donatemodel);
                             }
-                            nearbyfoodadpter.notifyDataSetChanged();
                         }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {}});
+                    }
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(nearbyfood_layout.this, "CAN'T CONNECT TO SERVER", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getselflist(){
+        DatabaseReference databaseReference;
+        databaseReference=FirebaseDatabase.getInstance().getReference().child("users");
+        mDatabase= FirebaseDatabase.getInstance();
+        mDatabase.getReference().keepSynced(true);
+        uid=FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+        mDatabase.getReference().child("donation").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for(DataSnapshot s:snapshot.getChildren()){
+                    donatemodel = new donatemodel();
+                    donatemodel = s.getValue(donatemodel.class);
+                    list.add(donatemodel);
+                }
+                nearbyfoodadpter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }

@@ -64,6 +64,7 @@
                     android:layout_marginTop="20dp"
                     android:background="#00FFFFFF"
                     android:backgroundTint="#00FFFFFF"
+                    android:onClick="showsettingcard"
                     android:scaleType="centerCrop"
                     android:tint="#43abb6"
                     app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +129,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         app:cardBackgroundColor="#43abb6"
@@ -136,23 +137,33 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:id="@+id/goodwillcnt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
                                 android:layout_margin="10dp"
                                 android:layout_weight="1"
+                                android:ellipsize="marquee"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
                                 android:fontFamily="@font/ubuntu"
                                 android:gravity="center"
-                                android:text="Expereinces"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:scrollHorizontally="true"
+                                android:singleLine="true"
+                                android:text="100 goodwill so far"
                                 android:textAlignment="center"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 android:textColor="#FFFFFF"
                                 android:textSize="14sp"
-                                app:layout_constraintStart_toStartOf="@+id/imageButton"
-                                app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+                                app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
+                                app:layout_constraintEnd_toEndOf="@+id/accountsdp"
+                                app:layout_constraintStart_toEndOf="@+id/imageButton2"
+                                app:layout_constraintTop_toTopOf="@+id/imageButton2"
+                                app:layout_constraintVertical_bias="0.0" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -176,7 +187,8 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/ubuntu"
                                 android:gravity="center"
-                                android:text="Adventures"
+                                android:onClick="openwb"
+                                android:text="Website"
                                 android:textAlignment="center"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 android:textColor="#FFFFFF"
@@ -205,7 +217,7 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/ubuntu"
                                 android:gravity="center"
-                                android:text="Activities"
+                                android:text="About us"
                                 android:textAlignment="center"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 android:textColor="#FFFFFF"
@@ -473,10 +485,10 @@
                     android:fadingEdge="horizontal|vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/horizontalScrollView"
-                    app:layout_constraintHorizontal_bias="0.102"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/horizontalScrollView"
                     app:layout_constraintTop_toBottomOf="@+id/title7"
-                    app:layout_constraintVertical_bias="0.636" />
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <ImageButton
                     android:id="@+id/openinventory"
@@ -519,16 +531,6 @@
             app:srcCompat="@drawable/ic_baseline_home_24" />
 
         <ImageButton
-            android:id="@+id/imageButton9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:backgroundTint="#00FFFFFF"
-            android:tint="#FFFFFF"
-            app:srcCompat="@drawable/ic_baseline_search_24" />
-
-        <ImageButton
             android:id="@+id/imageButton7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -537,6 +539,17 @@
             android:backgroundTint="#00FFFFFF"
             android:tint="#FFFFFF"
             app:srcCompat="@drawable/ic_baseline_chat_24" />
+
+        <ImageButton
+            android:id="@+id/imageButton9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#00FFFFFF"
+            android:onClick="mydonation"
+            android:tint="#FFFFFF"
+            app:srcCompat="@drawable/ic_baseline_card_giftcard_24" />
 
         <ImageButton
             android:id="@+id/imageButton10"
