@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".registeruser">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/registeruser_dpuser"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logoloading"
+        app:civ_border_color="#434343"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.086" />
+
+    <EditText
+        android:id="@+id/registeruser_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="Enter name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/registeruser_dpuser"
+        app:layout_constraintStart_toStartOf="@+id/registeruser_dpuser"
+        app:layout_constraintTop_toBottomOf="@+id/registeruser_dpuser" />
+
+    <EditText
+        android:id="@+id/registeruser_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Enter email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/registeruser_username"
+        app:layout_constraintStart_toStartOf="@+id/registeruser_username"
+        app:layout_constraintTop_toBottomOf="@+id/registeruser_username" />
+
+    <TextView
+        android:id="@+id/registeruser_locationshow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/registeruser_email"
+        app:layout_constraintStart_toStartOf="@+id/registeruser_email"
+        app:layout_constraintTop_toBottomOf="@+id/registeruser_email" />
+
+    <Button
+        android:id="@+id/registeruser_savedetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:onClick="savetodb"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="@+id/registeruser_email"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/registeruser_email"
+        app:layout_constraintTop_toBottomOf="@+id/registeruser_locationshow" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

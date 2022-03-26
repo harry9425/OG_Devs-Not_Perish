@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "475123079028",
+    "project_id": "notperish-a887a",
+    "storage_bucket": "notperish-a887a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475123079028:android:2970931201983d7104be21",
+        "android_client_info": {
+          "package_name": "com.harry9425.notperish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475123079028-mp016j5ed94bdes2j5adg7k3sgj4prqf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9rco-viKiODHJRyDEnD8QNG_y7wJUCig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475123079028-mp016j5ed94bdes2j5adg7k3sgj4prqf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
