@@ -15,7 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.notperish">
-        <activity android:name=".inventoryview"></activity>
+        <activity android:name=".splashscreen"><intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
+        <activity android:name=".inventoryview" />
         <activity android:name=".nearbyfood_layout" />
         <activity android:name=".inventory_large" />
         <activity android:name=".donateview" />
@@ -25,11 +30,6 @@
         <activity android:name=".barcodescan" />
         <activity android:name=".accountsetting" />
         <activity android:name=".startpage">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".login_page" />
         <activity android:name=".registeruser" />

@@ -85,7 +85,6 @@ public class nearbyfood_layout extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) { }
             });
-            getdonationlist();
         }
         searchdonate.addTextChangedListener(new TextWatcher() {
             @Override
@@ -103,7 +102,9 @@ public class nearbyfood_layout extends AppCompatActivity {
 
     public void refres(View view){
         searchdonate.setText("");
-        getdonationlist();
+        if(self==0){
+        getdonationlist();}
+        else getselflist();
     }
     public void bkbk(View view){
         onBackPressed();

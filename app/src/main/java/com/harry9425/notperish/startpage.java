@@ -185,6 +185,21 @@ public class startpage extends AppCompatActivity {
         ImageButton d=view2.findViewById(R.id.donation_showsetting);
         WebView w=view2.findViewById(R.id.showsetting_webview);
         Button so=view2.findViewById(R.id.so_ss);
+        i.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(startpage.this,inventory_large.class);
+                startActivity(i);
+            }
+        });
+        d.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(startpage.this, nearbyfood_layout.class);
+                nearbyfood_layout.self=0;
+                startActivity(i);
+            }
+        });
         so.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -250,6 +265,7 @@ public class startpage extends AppCompatActivity {
 
     public void nearbylarge(View view) {
        Intent i = new Intent(this, nearbyfood_layout.class);
+        nearbyfood_layout.self=0;
         startActivity(i);
     }
 

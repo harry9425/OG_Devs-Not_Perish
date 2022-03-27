@@ -63,6 +63,7 @@ public class barcodescan extends AppCompatActivity {
     StorageReference mref;
     Uri uri = null;
     String selval;
+    ImageButton cc;
     private DatePickerDialog datePickerDialog;
     String name, date, category, dp, uid, currentPhotoPath, pid = "",dinms;
     ArrayList<productmodel> ocrlist = MainActivity.arrayList;
@@ -71,6 +72,8 @@ public class barcodescan extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcodescan);
+        cc=(ImageButton) findViewById(R.id.productcancelcode);
+        cc.setVisibility(View.GONE);
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         pname = (EditText) findViewById(R.id.productnamecode);
         pdate = (EditText) findViewById(R.id.productexpirycode);
@@ -120,7 +123,25 @@ public class barcodescan extends AppCompatActivity {
                 mCodeScanner.startPreview();
             }
         });
+
+        cc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.cnt++;
+                if (MainActivity.cnt < ocrlist.size()) {
+                    Intent i = new Intent(barcodescan.this, barcodescan.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    MainActivity.fromocr = 0;
+                    Intent i = new Intent(barcodescan.this, startpage.class);
+                    startActivity(i);
+                    finish();
+                }
+            }
+        });
         if (MainActivity.fromocr == 1) {
+            cc.setVisibility(View.VISIBLE);
             if (MainActivity.fromocr + 1 == ocrlist.size()) {
                 save.setText("Save and exit");
             } else {

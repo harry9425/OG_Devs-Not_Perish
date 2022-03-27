@@ -100,7 +100,7 @@ public class donateview extends FragmentActivity implements OnMapReadyCallback {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        databaseReference.child(donatemodel.getUid()).child(donatemodel.getDonationid()).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(donatemodel.getUid()).child(donatemodel.getDonationid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 donatemodel=snapshot.getValue(donatemodel.class);
@@ -197,6 +197,7 @@ public class donateview extends FragmentActivity implements OnMapReadyCallback {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(donateview.this,"successfull",Toast.LENGTH_SHORT).show();
+                                nearbyfood_layout.self=1;
                                 onBackPressed();
                             }
                         });

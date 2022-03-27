@@ -41,6 +41,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_refresh_24" />
 
+    <ImageButton
+        android:id="@+id/productcancelcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="#43abb6"
+        app:layout_constraintEnd_toStartOf="@+id/productrefreshcode"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_close_24" />
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
